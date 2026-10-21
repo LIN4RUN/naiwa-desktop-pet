@@ -1,0 +1,44 @@
+# ===== .NET Framework / C# / Visual Studio 通用 =====
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.nupkg
+*.snupkg
+
+# ===== 编译产物（exe/dll 不入库，从源码 build.cmd 构建） =====
+*.exe
+*.dll
+*.pdb
+*.cache
+*.ilk
+*.meta
+*.rsp
+
+# ===== 运行日志 / 自检输出 =====
+*.log
+self-test/
+self-test.txt
+
+# ===== 备份文件 =====
+*.bak
+*.old
+*~
+
+# ===== 素材生成中间产物 / 预览文件 =====
+native-*.png
+_sleep_*.png
+*预览*.png
+*.mp4
+
+# ===== 安装包（发布请走 GitHub Releases，不入仓库） =====
+*Setup.exe
+*_Setup.exe
+*.msi
+
+# ===== 本地工具（ffmpeg 等） =====
+tools/
+ffmpeg.exe
