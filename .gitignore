@@ -42,3 +42,8 @@ _sleep_*.png
 # ===== 本地工具（ffmpeg 等） =====
 tools/
 ffmpeg.exe
+
+# ===== 大体积素材（走 GitHub Releases，不入仓库） =====
+素材.nwp
+drag.nwp
+dance.mp3

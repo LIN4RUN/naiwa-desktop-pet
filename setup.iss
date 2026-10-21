@@ -1,15 +1,15 @@
 ﻿; 奶蛙桌宠 安装脚本（Inno Setup 6）— 放到项目根目录，双击 build_setup.cmd 或 ISCC 编译
 [Setup]
 AppName=奶蛙桌宠
-AppVersion=1.8.0
-AppVerName=奶蛙桌宠 v1.8
+AppVersion=2.0.0
+AppVerName=奶蛙桌宠 v2.0
 AppId={{8F3A2C1E-6B4D-4E9A-B5C2-7D0A9E3F1A08}
 DefaultDirName={autopf}\奶蛙桌宠
 DefaultGroupName=奶蛙桌宠
 DisableProgramGroupPage=yes
 UninstallDisplayIcon={app}\奶蛙桌宠.exe
 OutputDir=..\..
-OutputBaseFilename=奶蛙桌宠_v1.8_Setup
+OutputBaseFilename=奶蛙桌宠_v2.0_Setup
 Compression=lzma2/ultra64
 SolidCompression=yes
 SetupIconFile=源码\naiwa.ico
@@ -17,7 +17,7 @@ WizardStyle=modern
 PrivilegesRequired=admin
 ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
-VersionInfoVersion=1.8.0
+VersionInfoVersion=2.0.0
 VersionInfoProductName=奶蛙桌宠
 
 [Languages]
