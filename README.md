@@ -30,7 +30,7 @@ C# WinForms 桌面宠物：透明异形窗口、无焦点不抢鼠标、多帧�
 
 ### 方式一：安装包（推荐给普通用户）
 
-从 [Releases](https://github.com/你的用户名/奶蛙桌宠/releases) 下载 `奶蛙桌宠_v1.x_Setup.exe`，双击安装即可（安装包已包含全部素材与音效）。
+从 [Releases](https://github.com/LIN4RUN/naiwa-desktop-pet/releases) 下载 `奶蛙桌宠_v1.x_Setup.exe`，双击安装即可（安装包已包含全部素材与音效）。
 
 ### 方式二：源码构建
 
