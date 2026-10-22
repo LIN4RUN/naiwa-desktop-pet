@@ -1,4 +1,4 @@
-# ===== .NET Framework / C# / Visual Studio 通用 =====
+# ===== .NET / C# / Visual Studio 通用 =====
 bin/
 obj/
 .vs/
@@ -17,6 +17,7 @@ obj/
 *.ilk
 *.meta
 *.rsp
+_build/
 
 # ===== 运行日志 / 自检输出 =====
 *.log
@@ -33,11 +34,13 @@ native-*.png
 _sleep_*.png
 *预览*.png
 *.mp4
+*_fix.nwp
 
-# ===== 安装包（发布请走 GitHub Releases，不入仓库） =====
+# ===== 安装包 / 完整压缩包（发布请走 GitHub Releases，不入仓库） =====
 *Setup.exe
 *_Setup.exe
 *.msi
+*_v2.*.zip
 
 # ===== 本地工具（ffmpeg 等） =====
 tools/
@@ -46,4 +49,5 @@ ffmpeg.exe
 # ===== 大体积素材（走 GitHub Releases，不入仓库） =====
 素材.nwp
 drag.nwp
+idle_gif.nwp
 dance.mp3

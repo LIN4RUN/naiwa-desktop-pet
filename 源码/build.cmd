@@ -2,12 +2,32 @@
 chcp 65001 >nul
 setlocal
 cd /d "%~dp0"
-set "TEMP=%~dp0temp"
-set "TMP=%TEMP%"
-if not exist "%TEMP%" mkdir "%TEMP%"
-set "CSC=%WINDIR%\Microsoft.NET\Framework64\v4.0.30319\csc.exe"
-if not exist "%CSC%" set "CSC=%WINDIR%\Microsoft.NET\Framework\v4.0.30319\csc.exe"
-"%CSC%" /nologo /target:winexe /optimize+ /platform:anycpu /win32icon:naiwa.ico /win32manifest:Pet.manifest /out:..\奶蛙桌宠.exe /reference:System.Drawing.dll /reference:System.Windows.Forms.dll /reference:System.IO.Compression.dll /reference:System.IO.Compression.FileSystem.dll /reference:System.Web.Extensions.dll Naiwa.cs AssemblyInfo.cs
-if errorlevel 1 (pause & exit /b 1)
-echo Built successfully. Keep the executable beside 素材.nwp and 原版笑声.wav.
+
+echo === 奶蛙桌宠 构建脚本（需要 .NET SDK 6.0+） ===
+where dotnet >nul 2>nul
+if errorlevel 1 (
+    echo [错误] 没找到 dotnet 命令。请安装 .NET SDK 6.0 及以上版本：
+    echo        https://dotnet.microsoft.com/download
+    echo        或直接使用 Visual Studio 2022 打开 奶蛙桌宠.csproj 生成。
+    pause
+    exit /b 1
+)
+
+dotnet build 奶蛙桌宠.csproj -c Release -o "%~dp0_build"
+if errorlevel 1 (
+    echo [错误] 编译失败，请查看上方日志。
+    pause
+    exit /b 1
+)
+
+copy /y "%~dp0_build\奶蛙桌宠.exe" "%~dp0..\奶蛙桌宠.exe" >nul
+if errorlevel 1 (
+    echo [警告] 编译成功，但复制 exe 到根目录失败，请手动从 源码\_build 取 奶蛙桌宠.exe。
+    pause
+    exit /b 1
+)
+
+echo.
+echo 构建成功：..\奶蛙桌宠.exe
+echo 请确保 素材.nwp、idle_gif.nwp、drag.nwp、dance.mp3 等素材与 exe 在同一目录。
 pause
