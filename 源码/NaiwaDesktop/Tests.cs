@@ -507,7 +507,7 @@ internal static class Tests
 			Motion m5 = new Motion();
 			m5.NextBlink = 0.6;
 			double t5 = (double)k / 15.0;
-			m5.StartIdle(0.0, 5, 13000);
+			m5.StartIdle(0.0, 5, 16000);
 			m5.Update(t5, false, assets.Duration, (double)assets.BlinkCount / assets.BlinkFps);
 			using Bitmap b5 = Renderer.Render(assets, m5, 100);
 			b5.Save(Path.Combine(folder, "idle5_" + k.ToString("00") + ".png"), ImageFormat.Png);

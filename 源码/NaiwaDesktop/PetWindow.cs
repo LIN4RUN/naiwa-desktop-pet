@@ -95,6 +95,12 @@ internal sealed class PetWindow : Form
 
 	private ToolStripMenuItem volumeItem;
 
+	private ToolStripMenuItem volumeMuteItem;
+
+	private TrackBar volumeBarControl;
+
+	private int volumeMuteBack = 100;
+
 	private Point dragWindow;
 
 	private Point lastDragPointer;
@@ -432,24 +438,46 @@ internal sealed class PetWindow : Form
 			Minimum = 0,
 			Maximum = 100,
 			TickStyle = TickStyle.None,
+			SmallChange = 5,
+			LargeChange = 10,
 			AutoSize = false,
-			Height = 24,
-			Width = 168,
+			Height = 34,
+			Width = 200,
 			Value = settings.Volume
 		};
 		volumeBar.Scroll += (object param0, EventArgs param1) =>
 		{
 			SetVolume(volumeBar.Value);
 		};
+		volumeBarControl = volumeBar;
 		ToolStripControlHost toolStripControlHost = new ToolStripControlHost(volumeBar);
 		toolStripControlHost.AutoSize = false;
-		toolStripControlHost.Width = 180;
+		toolStripControlHost.Width = 210;
+		toolStripControlHost.Height = 34;
 		ToolStripControlHost value = toolStripControlHost;
 		volumeItem.DropDownItems.Add(value);
+		volumeItem.DropDownItems.Add(new ToolStripSeparator());
+		volumeItem.DropDownItems.Add("调大 5%", null, (object param0, EventArgs param1) =>
+		{
+			SetVolume(settings.Volume + 5);
+		});
+		volumeItem.DropDownItems.Add("调小 5%", null, (object param0, EventArgs param1) =>
+		{
+			SetVolume(settings.Volume - 5);
+		});
+		volumeMuteItem = new ToolStripMenuItem("静音", null, (object param0, EventArgs param1) =>
+		{
+			ToggleMute();
+		});
+		volumeItem.DropDownItems.Add(volumeMuteItem);
 		volumeItem.DropDownItems.Add(new ToolStripSeparator());
 		int[] array4 = new int[6] { 100, 80, 60, 40, 20, 0 };
 		foreach (int num4 in array4)
 		{
+			if (num4 == 0)
+			{
+				continue;
+			}
 			int fv = num4;
 			volumeItem.DropDownItems.Add(fv + "%", null, (object param0, EventArgs param1) =>
 			{
@@ -504,7 +532,7 @@ internal sealed class PetWindow : Form
 			Motion.StartIdle(now, extraRandom.Next(4), 1400);
 			break;
 		case "idle5":
-			Motion.StartIdle(now, 5, 13000);
+			Motion.StartIdle(now, 5, 16000);
 			break;
 		case "idle6":
 			Motion.StartIdle(now, 6, 2000);
@@ -561,6 +589,10 @@ internal sealed class PetWindow : Form
 		if (volumeItem != null)
 		{
 			volumeItem.Text = "音量：" + settings.Volume + "%";
+		}
+		if (volumeMuteItem != null)
+		{
+			volumeMuteItem.Text = ((settings.Volume <= 0) ? "取消静音" : "静音");
 		}
 		if (hungerItem != null)
 		{
@@ -669,6 +701,20 @@ internal sealed class PetWindow : Form
 	internal void SetVolume(int v)
 	{
 		settings.Volume = Math.Max(0, Math.Min(100, v));
+		if (settings.Volume > 0)
+		{
+			volumeMuteBack = settings.Volume;
+		}
+		try
+		{
+			if (volumeBarControl != null && volumeBarControl.Value != settings.Volume)
+			{
+				volumeBarControl.Value = settings.Volume;
+			}
+		}
+		catch
+		{
+		}
 		try
 		{
 			if (laughSound != null)
@@ -701,6 +747,19 @@ internal sealed class PetWindow : Form
 		}
 		UpdateMenu();
 		Save();
+	}
+
+	private void ToggleMute()
+	{
+		if (settings.Volume > 0)
+		{
+			volumeMuteBack = settings.Volume;
+			SetVolume(0);
+		}
+		else
+		{
+			SetVolume((volumeMuteBack > 0) ? volumeMuteBack : 100);
+		}
 	}
 
 	private dynamic EnsureLaughPlayer()
@@ -1026,7 +1085,7 @@ internal sealed class PetWindow : Form
 			{
 				if (extraRandom.NextDouble() < 0.5)
 				{
-					Motion.StartIdle(Now, 5, 13000);
+					Motion.StartIdle(Now, 5, 16000);
 				}
 				else
 				{
